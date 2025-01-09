@@ -1,0 +1,22 @@
+.app-container {
+  display: flex;
+}
+
+.app-content {
+  flex: 1;
+  margin-top: 56px;
+  margin-right: 1%;
+  margin-left: 1%;
+  padding-left: 15%;
+  /* background-color: white; */
+}
+
+@media screen and (max-width: 1048px) {
+  .app-navbar {
+    width: 200px;
+  }
+
+  .app-content {
+    padding-left: 200px;
+  }
+}

@@ -1,0 +1,12 @@
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+  animation: fadeIn 1s ease;
+}
+
+.bg--dark-blue {
+  background-color: rgb(16, 36, 55);
+}
