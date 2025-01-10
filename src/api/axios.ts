@@ -1,7 +1,8 @@
 import axios from "axios";
+import { API_URL } from "../app.config";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/api", // Adjust to your backend's base URL
+  baseURL: `${API_URL}/api`,
 });
 
 // Automatically add the token to the Authorization header
