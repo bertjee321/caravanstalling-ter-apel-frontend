@@ -1,7 +1,6 @@
 import { useState } from "react";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import "./AddInvoice.css";
-import { Invoice } from "../../redux/invoices/invoices.types";
 
 export interface InvoiceInput {
   amount: number;

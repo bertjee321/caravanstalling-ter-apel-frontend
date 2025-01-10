@@ -41,16 +41,6 @@ const VehicleList: React.FC = () => {
     // You can handle the row click here, e.g., navigate, show details, etc.
   };
 
-  const getCellFormattedValueAndClass = (key: string, value: any) => {
-    let cellClass = "";
-    let formattedValue = value;
-
-    return {
-      cellClass,
-      formattedValue,
-    };
-  };
-
   if (isLoading) {
     return <Spinner />;
   }
@@ -77,7 +67,6 @@ const VehicleList: React.FC = () => {
       headers={TABLE_HEADERS.map((header) => header.label)}
       headerKeys={TABLE_HEADERS.map((header) => header.key)}
       onRowClick={handleRowClick}
-      getCellClassAndFormattedValue={getCellFormattedValueAndClass}
     />
   );
 };

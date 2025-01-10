@@ -1,15 +1,15 @@
 import { AxiosResponse } from "axios";
 import axiosInstance from "../../api/axios";
+import { AddInvoice } from "../invoices/invoices.types";
 import { AppDispatch } from "../store";
+import { addVehicle } from "../vehicles/vehicles.thunks";
+import { AddVehicle } from "../vehicles/vehicles.types";
 import {
   fetchCustomers,
   fetchCustomersFailure,
   fetchCustomersSuccess,
 } from "./customers.slice";
 import { AddCustomer, Customer } from "./customers.types";
-import { AddVehicle, Vehicle } from "../vehicles/vehicles.types";
-import { AddInvoice, Invoice } from "../invoices/invoices.types";
-import { addVehicle } from "../vehicles/vehicles.thunks";
 
 export const getCustomers = () => async (dispatch: AppDispatch) => {
   dispatch(fetchCustomers());
