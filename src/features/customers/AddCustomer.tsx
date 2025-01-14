@@ -3,60 +3,76 @@ import { useDispatch } from "react-redux";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import { addCustomer } from "../../redux/customers/customers.thunks";
 import { AppDispatch } from "../../redux/store";
-import AddInvoice, { InvoiceInput } from "../invoices/AddInvoice";
-import AddVehicle, { VehicleInput, VehicleType } from "../vehicles/AddVehicle";
 import "./AddCustomer.css";
+import AffixInput from "./inputs/AffixInput";
+import CityInput from "./inputs/CityInput";
+import EmailInput from "./inputs/EmailInput";
+import FirstNameInput from "./inputs/FirstNameInput";
+import HouseNumberAdditionInput from "./inputs/HouseNumberAdditionInput";
+import HouseNumberInput from "./inputs/HouseNumberInput";
+import LastNameInput from "./inputs/LastNameInput";
+import PhoneInput from "./inputs/PhoneInput";
+import PostalCodeInput from "./inputs/PostalCodeInput";
+import StreetInput from "./inputs/StreetInput";
+
+export interface CustomerInput {
+  firstName: string;
+  affix: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  street: string;
+  houseNumber: string;
+  houseNumberAddition: string;
+  postalCode: string;
+  city: string;
+}
 
 const AddCustomer: React.FC = () => {
-  // Customer State
-  const [customer, setCustomer] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-  });
-  const [vehicle, setVehicle] = useState<VehicleInput>({
-    type: VehicleType.OTHER,
-    garage: "",
-    licensePlate: "",
-  });
-  const [invoice, setInvoice] = useState<InvoiceInput>({
-    amount: 0,
-    invoiceDate: new Date().toISOString().split("T")[0], // default to today's date in the format YYYY-MM-DD
-    dueDate: new Date().toISOString().split("T")[0], // default to today's date in the format YYYY-MM-DD
-  });
-
   const dispatch: AppDispatch = useDispatch();
+  const [resetForm, setResetForm] = useState(0);
+  const [customer, setCustomer] = useState<CustomerInput>({
+    firstName: "",
+    affix: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    street: "",
+    houseNumber: "",
+    houseNumberAddition: "",
+    postalCode: "",
+    city: "",
+  });
+  const [customerInputErrors, setCustomerInputErrors] = useState({
+    lastName: false,
+    firstName: false,
+    email: false,
+    phoneNumber: false,
+    street: false,
+    houseNumber: false,
+    postalCode: false,
+    city: false,
+  });
 
-  // Section Toggles
-  const [addVehicle, setAddVehicle] = useState(false);
-  const [addInvoice, setAddInvoice] = useState(false);
-
-  const handleVehicleStateChange = (newState: VehicleInput) => {
-    setVehicle((prevState) => ({ ...prevState, ...newState }));
+  const handleCustomerStateChange = (newState: { [key: string]: string }) => {
+    setCustomer((prevState) => ({ ...prevState, ...newState }));
   };
 
-  const handleInvoiceStateChange = (newState: InvoiceInput) => {
-    setInvoice((prevState) => ({ ...prevState, ...newState }));
-  };
-
-  const handleCustomerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCustomer({ ...customer, [e.target.name]: e.target.value });
+  const handleCustomerErrors = (newErrors: { [key: string]: boolean }) => {
+    setCustomerInputErrors((prevState) => ({ ...prevState, ...newErrors }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const vehicleData = addVehicle ? vehicle : undefined;
-    const invoiceData = addInvoice ? invoice : undefined;
+    if (Object.values(customerInputErrors).some((error) => error)) {
+      return;
+    }
 
-    dispatch(addCustomer(customer, vehicleData, invoiceData));
+    dispatch(addCustomer(customer));
 
     // Reset Form
-    setCustomer({ email: "", firstName: "", lastName: "", phoneNumber: "" });
-
-    setAddVehicle(false);
-    setAddInvoice(false);
+    setResetForm((prevState) => prevState + 1);
   };
 
   return (
@@ -66,77 +82,69 @@ const AddCustomer: React.FC = () => {
         <hr style={{ marginBottom: "15px", marginTop: "15px" }}></hr>
         <div className="form-section">
           <h3>Klantgegevens</h3>
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={customer.email}
-            onChange={handleCustomerChange}
-            required
+          <FirstNameInput
+            onStateChange={handleCustomerStateChange}
+            onGetError={handleCustomerErrors}
+            reset={resetForm}
           />
-          <label>Voornaam</label>
-          <input
-            type="text"
-            name="firstName"
-            value={customer.firstName}
-            onChange={handleCustomerChange}
-            required
-          />
-          <label>Achternaam</label>
-          <input
-            type="text"
-            name="lastName"
-            value={customer.lastName}
-            onChange={handleCustomerChange}
-            required
-          />
-          <label>Telefoonnummer</label>
-          <input
-            type="text"
-            name="phoneNumber"
-            value={customer.phoneNumber}
-            onChange={handleCustomerChange}
-          />
-        </div>
-
-        <div className="toggle-section">
-          <label className="checkbox-container">
-            Voertuig toevoegen
-            <input
-              type="checkbox"
-              checked={addVehicle}
-              onChange={(e) => {
-                setAddVehicle(e.target.checked);
-                if (!e.target.checked) setAddInvoice(false);
-              }}
+          <div className="input-row">
+            <AffixInput
+              onStateChange={handleCustomerStateChange}
+              reset={resetForm}
             />
-            <span className="checkmark"></span>
-          </label>
-        </div>
-
-        {addVehicle && (
-          <>
-            <AddVehicle
-              inForm={true}
-              onStateChange={handleVehicleStateChange}
+            <LastNameInput
+              onStateChange={handleCustomerStateChange}
+              onGetError={handleCustomerErrors}
+              reset={resetForm}
+              isRequired={true}
             />
-            <div className="toggle-section">
-              <label className="checkbox-container">
-                Factuur toevoegen
-                <input
-                  type="checkbox"
-                  checked={addInvoice}
-                  onChange={(e) => setAddInvoice(e.target.checked)}
-                />
-                <span className="checkmark"></span>
-              </label>
-            </div>
-          </>
-        )}
-        {addInvoice && (
-          <AddInvoice inForm={true} onStateChange={handleInvoiceStateChange} />
-        )}
-
+          </div>
+          <div className="input-row">
+            <EmailInput
+              onStateChange={handleCustomerStateChange}
+              onGetError={handleCustomerErrors}
+              reset={resetForm}
+              isRequired={true}
+            />
+            <PhoneInput
+              onStateChange={handleCustomerStateChange}
+              onGetError={handleCustomerErrors}
+              reset={resetForm}
+            />
+          </div>
+          <StreetInput
+            onStateChange={handleCustomerStateChange}
+            onGetError={handleCustomerErrors}
+            reset={resetForm}
+            isRequired={true}
+          />
+          <div className="input-row">
+            <HouseNumberInput
+              onStateChange={handleCustomerStateChange}
+              onGetError={handleCustomerErrors}
+              reset={resetForm}
+              isRequired={true}
+            />
+            <HouseNumberAdditionInput
+              onStateChange={handleCustomerStateChange}
+              reset={resetForm}
+            />
+          </div>
+          <div className="input-row">
+            <PostalCodeInput
+              onGetError={handleCustomerErrors}
+              reset={resetForm}
+              isRequired={true}
+              onStateChange={handleCustomerStateChange}
+            />
+            <CityInput
+              onGetError={handleCustomerErrors}
+              reset={resetForm}
+              isRequired={true}
+              onStateChange={handleCustomerStateChange}
+            />
+          </div>
+        </div>
         <SubmitButton>Bevestigen</SubmitButton>
       </form>
     </>
