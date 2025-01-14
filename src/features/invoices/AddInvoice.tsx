@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SubmitButton from "../../components/buttons/SubmitButton";
-import "./AddInvoice.css";
+import formStyles from "../../styles/form-styles.module.css";
 import AmountInput from "./inputs/AmountInput";
 import DueDateInput from "./inputs/DueDateInput";
 import InvoiceDateInput from "./inputs/InvoiceDateInput";
@@ -37,7 +37,7 @@ const AddInvoice: React.FC = () => {
   };
 
   const form = (
-    <div className="form-section">
+    <div className={formStyles["form-section"]}>
       <h3>Factuurgegevens</h3>
       <AmountInput
         onStateChange={handleChange}
@@ -59,7 +59,7 @@ const AddInvoice: React.FC = () => {
   );
 
   return (
-    <form className="add-invoice-form" onSubmit={handleSubmit}>
+    <form className={formStyles["app-form"]} onSubmit={handleSubmit}>
       <h1>Factuur toevoegen</h1>
       <hr style={{ marginBottom: "15px", marginTop: "15px" }}></hr>
       {form}

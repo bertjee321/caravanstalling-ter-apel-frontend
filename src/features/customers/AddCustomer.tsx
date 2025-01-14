@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import { addCustomer } from "../../redux/customers/customers.thunks";
 import { AppDispatch } from "../../redux/store";
-import "./AddCustomer.css";
+import formStyles from "../../styles/form-styles.module.css";
 import AffixInput from "./inputs/AffixInput";
 import CityInput from "./inputs/CityInput";
 import EmailInput from "./inputs/EmailInput";
@@ -77,17 +77,17 @@ const AddCustomer: React.FC = () => {
 
   return (
     <>
-      <form className="add-customer-form" onSubmit={handleSubmit}>
+      <form className={formStyles["app-form"]} onSubmit={handleSubmit}>
         <h1>Klant toevoegen</h1>
         <hr style={{ marginBottom: "15px", marginTop: "15px" }}></hr>
-        <div className="form-section">
+        <div className={formStyles["form-section"]}>
           <h3>Klantgegevens</h3>
           <FirstNameInput
             onStateChange={handleCustomerStateChange}
             onGetError={handleCustomerErrors}
             reset={resetForm}
           />
-          <div className="input-row">
+          <div className={formStyles["input-row"]}>
             <AffixInput
               onStateChange={handleCustomerStateChange}
               reset={resetForm}
@@ -99,7 +99,7 @@ const AddCustomer: React.FC = () => {
               isRequired={true}
             />
           </div>
-          <div className="input-row">
+          <div className={formStyles["input-row"]}>
             <EmailInput
               onStateChange={handleCustomerStateChange}
               onGetError={handleCustomerErrors}
@@ -118,7 +118,7 @@ const AddCustomer: React.FC = () => {
             reset={resetForm}
             isRequired={true}
           />
-          <div className="input-row">
+          <div className={formStyles["input-row"]}>
             <HouseNumberInput
               onStateChange={handleCustomerStateChange}
               onGetError={handleCustomerErrors}
@@ -130,7 +130,7 @@ const AddCustomer: React.FC = () => {
               reset={resetForm}
             />
           </div>
-          <div className="input-row">
+          <div className={formStyles["input-row"]}>
             <PostalCodeInput
               onGetError={handleCustomerErrors}
               reset={resetForm}

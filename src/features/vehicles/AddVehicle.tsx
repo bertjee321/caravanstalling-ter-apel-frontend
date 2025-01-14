@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import { Garage, VehicleType } from "../../enums";
-import "./AddVehicle.css";
+import formStyles from "../../styles/form-styles.module.css";
 import BrandInput from "./inputs/BrandInput";
 import GarageInput from "./inputs/GarageInput";
 import LicensePlateInput from "./inputs/LicensePlateInput";
@@ -42,7 +42,7 @@ const AddVehicle: React.FC = () => {
   };
 
   const form = (
-    <div className="form-section">
+    <div className={formStyles["form-section"]}>
       <h3>Voertuiggegevens</h3>
       <VehicleTypeInput onStateChange={handleChange} reset={resetForm} />
       <LicensePlateInput onStateChange={handleChange} reset={resetForm} />
@@ -54,7 +54,7 @@ const AddVehicle: React.FC = () => {
   );
 
   return (
-    <form className="add-vehicle-form" onSubmit={handleSubmit}>
+    <form className={formStyles["app-form"]} onSubmit={handleSubmit}>
       <h1>Voertuig toevoegen</h1>
       <hr style={{ marginBottom: "15px", marginTop: "15px" }}></hr>
       {form}

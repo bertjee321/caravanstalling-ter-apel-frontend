@@ -10,7 +10,6 @@ import {
   selectVehiclesIsLoading,
 } from "../../redux/vehicles/vehicles.selectors";
 import { getVehicles } from "../../redux/vehicles/vehicles.thunks";
-import "./VehicleList.css";
 
 const TABLE_HEADERS = [
   { key: "id", label: "ID" },

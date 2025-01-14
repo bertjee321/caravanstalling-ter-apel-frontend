@@ -1,5 +1,5 @@
 import React from "react";
-import "./Table.css";
+import styles from "./Table.module.css";
 
 interface TableProps {
   headers: string[];
@@ -26,12 +26,12 @@ const Table: React.FC<TableProps> = ({
   };
 
   return (
-    <div className="table-container">
-      <table className="table">
+    <div className={styles["table-container"]}>
+      <table className={styles["table"]}>
         <thead>
           <tr>
             {headers.map((header, index) => (
-              <th key={index} className="table-header">
+              <th key={index} className={styles["table-header"]}>
                 {header}
               </th>
             ))}
@@ -41,7 +41,7 @@ const Table: React.FC<TableProps> = ({
           {data.map((row, rowIndex) => (
             <tr
               key={rowIndex}
-              className={rowIndex % 2 === 0 ? "even" : "odd"}
+              className={rowIndex % 2 === 0 ? styles["even"] : styles["odd"]}
               onClick={() => handleRowClick(row)}
             >
               {headerKeys.map((header, index) => {
@@ -49,14 +49,17 @@ const Table: React.FC<TableProps> = ({
                   const { cellClass, formattedValue } =
                     getCellClassAndFormattedValue(header, row[header]);
                   return (
-                    <td key={index} className={`table-cell ${cellClass}`}>
+                    <td
+                      key={index}
+                      className={`${styles["table-cell"]} ${cellClass}`}
+                    >
                       {formattedValue}
                     </td>
                   );
                 } else {
                   const cellValue = row[header];
                   return (
-                    <td key={index} className="table-cell">
+                    <td key={index} className={styles["table-cell"]}>
                       {cellValue}
                     </td>
                   );

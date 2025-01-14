@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Spinner from "../../components/spinner/Spinner";
 import Table from "../../components/table/Table";
 import {
   selectCustomers,
@@ -8,10 +9,8 @@ import {
 } from "../../redux/customers/customers.selectors";
 import { getCustomers } from "../../redux/customers/customers.thunks";
 import { AppDispatch } from "../../redux/store";
-import { formatCurrency } from "../../utils/format-currency.utils";
-import "./CustomerList.css";
 import { getInvoicesAmount } from "../../utils/customer.utils";
-import Spinner from "../../components/spinner/Spinner";
+import { formatCurrency } from "../../utils/format-currency.utils";
 
 const CustomerList: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();

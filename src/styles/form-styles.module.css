@@ -1,4 +1,4 @@
-.add-invoice-form {
+.app-form {
   display: flex;
   flex-direction: column;
   max-width: 500px;
@@ -10,8 +10,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.add-invoice-form h2,
-.add-invoice-form h3 {
+.app-form h2,
+.app-form h3 {
   margin-bottom: 15px;
   color: #333;
 }
@@ -41,11 +41,41 @@
   outline: none;
 }
 
+.form-section select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #555;
+  transition: border-color 0.3s ease;
+}
+
+.form-section select:focus {
+  border-color: #74ebd5;
+  outline: none;
+}
+
+.form-section select option {
+  background-color: #fff; /* Option background to match select */
+  color: #555; /* Text color for options */
+}
+
+.input-row {
+  display: flex;
+  gap: 10px; /* Adjust the gap as needed */
+}
+
+.input-row > * {
+  flex: 1; /* Adjust the flex value as needed */
+}
+
 .toggle-section {
   margin-bottom: 20px;
 }
 
-/* Custom Checkbox Styling */
 .checkbox-container {
   display: flex;
   align-items: center; /* Align items vertically */
