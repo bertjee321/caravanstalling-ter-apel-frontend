@@ -1,15 +1,13 @@
 import { AxiosResponse } from "axios";
 import axiosInstance from "../../api/axios";
-import { AddInvoice } from "../invoices/invoices.types";
+import { CustomerInput } from "../../features/customers/AddCustomer";
 import { AppDispatch } from "../store";
-import { addVehicle } from "../vehicles/vehicles.thunks";
-import { AddVehicle } from "../vehicles/vehicles.types";
 import {
   fetchCustomers,
   fetchCustomersFailure,
   fetchCustomersSuccess,
 } from "./customers.slice";
-import { AddCustomer, Customer } from "./customers.types";
+import { Customer } from "./customers.types";
 
 export const getCustomers = () => async (dispatch: AppDispatch) => {
   dispatch(fetchCustomers());
@@ -25,32 +23,27 @@ export const getCustomers = () => async (dispatch: AppDispatch) => {
 };
 
 export const addCustomer =
-  (customer: AddCustomer, vehicle?: AddVehicle, invoice?: AddInvoice) =>
-  async (dispatch: AppDispatch) => {
+  (customer: CustomerInput) => async (dispatch: AppDispatch) => {
     try {
       const requestData = {
-        email: customer.email,
-        first_name: customer.firstName,
         last_name: customer.lastName,
+        affix: customer.affix,
+        first_name: customer.firstName,
+        email: customer.email,
         phone_number: customer.phoneNumber,
+        street: customer.street,
+        house_number: customer.houseNumber,
+        house_number_addition: customer.houseNumberAddition,
+        postal_code: customer.postalCode,
+        city: customer.city,
       };
       const response = await axiosInstance.post<
         AxiosResponse<{ id: number }, any>
       >("/customers/addcustomer", requestData);
 
-      const customerId = response.data.data.id;
+      const customerId = response.data.data.id; // Might be used later on
 
-      if (vehicle) {
-        const vehicleData: AddVehicle = {
-          customerId,
-          garage: vehicle.garage,
-          licensePlate: vehicle.licensePlate,
-          type: vehicle.type,
-        };
-        dispatch(addVehicle(vehicleData, invoice));
-      }
-
-      dispatch(getCustomers()); // should set customer to state!
+      dispatch({ type: "CUSTOMER ADDED" }); // should set customer to state!
     } catch (error: any) {
       console.error(error);
     }
