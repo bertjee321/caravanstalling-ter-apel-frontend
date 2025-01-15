@@ -1,90 +1,66 @@
 import { useState } from "react";
 import SubmitButton from "../../components/buttons/SubmitButton";
-import "./AddVehicle.css";
-
-export enum VehicleType {
-  CARAVAN = "Caravan",
-  CAMPER = "Camper",
-  CAR = "Auto",
-  TRAILER = "Aanhanger",
-  MOTORCYCLE = "Motor",
-  OTHER = "Anders",
-}
+import { Garage, VehicleType } from "../../enums";
+import formStyles from "../../styles/form-styles.module.css";
+import BrandInput from "./inputs/BrandInput";
+import GarageInput from "./inputs/GarageInput";
+import LicensePlateInput from "./inputs/LicensePlateInput";
+import ModelInput from "./inputs/ModelInput";
+import SizeInput from "./inputs/SizeInput";
+import VehicleTypeInput from "./inputs/VehicleTypeInput";
 
 export interface VehicleInput {
-  type: VehicleType;
-  garage: string;
+  vehicleType: VehicleType;
+  garage: Garage;
   licensePlate: string;
+  size: number;
+  brand: string;
+  model: string;
 }
 
-interface AddVehicleComponentProps {
-  inForm?: boolean; // Optional prop to render only the form
-  onStateChange?: (state: VehicleInput) => void; // Callback to pass state to parent
-}
-
-const AddVehicle: React.FC<AddVehicleComponentProps> = ({
-  inForm,
-  onStateChange,
-}) => {
+const AddVehicle: React.FC = () => {
+  const [resetForm, setResetForm] = useState(0);
   const [vehicle, setVehicle] = useState<VehicleInput>({
-    type: VehicleType.OTHER,
-    garage: "",
+    vehicleType: VehicleType.OTHER,
+    garage: Garage.GARAGE_ONE,
     licensePlate: "",
+    size: 0,
+    brand: "",
+    model: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVehicle({ ...vehicle, [e.target.name]: e.target.value });
-
-    if (inForm && onStateChange) {
-      onStateChange({ ...vehicle, [e.target.name]: e.target.value });
-    }
+  const handleChange = (newState: { [key: string]: string }) => {
+    setVehicle((prevState) => ({ ...prevState, ...newState }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("Submitting Vehicle Data");
+    console.log("Submitting Vehicle Data", vehicle);
+
+    setResetForm((prev) => prev + 1);
   };
 
   const form = (
-    <div className="form-section">
+    <div className={formStyles["form-section"]}>
       <h3>Voertuiggegevens</h3>
-      <label>Kenteken</label>
-      <input
-        type="text"
-        name="licensePlate"
-        value={vehicle.licensePlate}
-        onChange={handleChange}
-        required
-      />
-      <label>Type voertuig</label>
-      <input
-        type="text"
-        name="type"
-        value={vehicle.type?.toString()}
-        onChange={handleChange}
-        required
-      />
-      <label>Locatie (schuur)</label>
-      <input
-        type="text"
-        name="garage"
-        value={vehicle.garage}
-        onChange={handleChange}
-      />
+      <VehicleTypeInput onStateChange={handleChange} reset={resetForm} />
+      <LicensePlateInput onStateChange={handleChange} reset={resetForm} />
+      <BrandInput onStateChange={handleChange} reset={resetForm} />
+      <ModelInput onStateChange={handleChange} reset={resetForm} />
+      <SizeInput onStateChange={handleChange} reset={resetForm} />
+      <GarageInput onStateChange={handleChange} reset={resetForm} />
     </div>
   );
 
-  if (inForm) {
-    return form;
-  } else {
-    return (
-      <form className="add-vehicle-form" onSubmit={handleSubmit}>
-        {form}
-        <SubmitButton>Voertuig toevoegen</SubmitButton>
-      </form>
-    );
-  }
+  return (
+    <form className={formStyles["app-form"]} onSubmit={handleSubmit}>
+      <h1>Voertuig toevoegen</h1>
+      <hr style={{ marginBottom: "15px", marginTop: "15px" }}></hr>
+      {form}
+      <SubmitButton>Voertuig toevoegen</SubmitButton>
+    </form>
+  );
 };
 
 export default AddVehicle;

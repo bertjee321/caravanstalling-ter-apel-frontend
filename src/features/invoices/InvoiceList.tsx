@@ -8,7 +8,6 @@ import {
 import { getInvoices } from "../../redux/invoices/invoices.thunks";
 import { AppDispatch } from "../../redux/store";
 import { formatCurrency } from "../../utils/format-currency.utils";
-import "./InvoiceList.css";
 import Spinner from "../../components/spinner/Spinner";
 import Table from "../../components/table/Table";
 

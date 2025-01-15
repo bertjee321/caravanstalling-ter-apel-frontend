@@ -40,7 +40,7 @@ const Dashboard: React.FC = () => {
         navigate("/vehicles/add-vehicle");
         break;
       case ButtonType.INVOICES:
-        navigate("/customers/add-invoice");
+        navigate("/invoices/add-invoice");
         break;
     }
   };
@@ -63,14 +63,14 @@ const Dashboard: React.FC = () => {
         Klant toevoegen
       </button>
       <button
-        className="add-button add-vehicle-button disabled"
-        // onClick={() => handleButtonClick(ButtonType.VEHICLES)}
+        className="add-button add-vehicle-button"
+        onClick={() => handleButtonClick(ButtonType.VEHICLES)}
       >
         Voertuig toevoegen
       </button>
       <button
-        className="add-button add-invoice-button disabled"
-        // onClick={() => handleButtonClick(ButtonType.INVOICES)}
+        className="add-button add-invoice-button"
+        onClick={() => handleButtonClick(ButtonType.INVOICES)}
       >
         Factuur toevoegen
       </button>
