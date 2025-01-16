@@ -28,3 +28,13 @@ export interface AddInvoice {
   vehicleId?: number;
   customerId?: number;
 }
+
+export interface InvoiceRequestParameters {
+  customer_id: number;
+  vehicle_id: number;
+  amount: number;
+  invoice_date: string;
+  due_date: string;
+  paid: boolean | null;
+  payment_date: string | null;
+}

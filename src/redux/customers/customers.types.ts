@@ -25,3 +25,16 @@ export interface AddCustomer {
   lastName: string;
   phoneNumber: string;
 }
+
+export interface CustomerRequestParameters {
+  last_name: string;
+  affix: string | null;
+  first_name: string;
+  email: string;
+  phone_number: string;
+  street: string;
+  house_number: string;
+  house_number_addition: string | null;
+  postal_code: string;
+  city: string;
+}

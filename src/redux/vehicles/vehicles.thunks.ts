@@ -1,14 +1,13 @@
 import { AxiosResponse } from "axios";
 import axiosInstance from "../../api/axios";
-import { addInvoice } from "../invoices/invoices.thunks";
-import { AddInvoice } from "../invoices/invoices.types";
+import { VehicleInput } from "../../features/vehicles/AddVehicle";
 import { AppDispatch } from "../store";
 import {
   fetchVehicles,
   fetchVehiclesFailure,
   fetchVehiclesSuccess,
 } from "./vehicles.slice";
-import { AddVehicle, Vehicle } from "./vehicles.types";
+import { Vehicle, VehicleRequestParameters } from "./vehicles.types";
 
 export const getVehicles = () => async (dispatch: AppDispatch) => {
   dispatch(fetchVehicles());
@@ -23,31 +22,26 @@ export const getVehicles = () => async (dispatch: AppDispatch) => {
   }
 };
 
-export const addVehicle = (vehicle: AddVehicle, invoice?: AddInvoice) => async (dispatch: AppDispatch) => {
-  try {
-    const requestData = {
-      customer_id: vehicle.customerId,
-      garage: vehicle.garage,
-      license_plate: vehicle.licensePlate,
-      type: vehicle.type,
+export const addVehicle =
+  (vehicle: VehicleInput) => async (dispatch: AppDispatch) => {
+    try {
+      const requestData: VehicleRequestParameters = {
+        customer_id: 0,
+        type: vehicle.vehicleType,
+        garage: vehicle.garage,
+        license_plate: vehicle.licensePlate,
+        size: vehicle.size,
+        brand: vehicle.brand,
+        model: vehicle.model,
+        currently_in_garage: false,
+      };
+      await axiosInstance.post<AxiosResponse<{ id: number }, any>>(
+        "/vehicles/addvehicle",
+        requestData
+      );
+
+      dispatch({ type: "VEHICLE ADDED" }); // should set vehicle to state!
+    } catch (error: any) {
+      console.error(error);
     }
-    const response = await axiosInstance.post<AxiosResponse<{ id: number }, any>>("/vehicles/addvehicle", requestData);
-
-    console.log("invoice data", invoice);
-
-    if (invoice) {
-      const invoiceData: AddInvoice = {
-        amount: invoice.amount,
-        dueDate: invoice.dueDate,
-        invoiceDate: invoice.invoiceDate,
-        vehicleId: response.data.data.id,
-        customerId: vehicle.customerId,
-      }
-      dispatch(addInvoice(invoiceData)); // should set invoice
-    }
-
-    dispatch(getVehicles());
-  } catch (error: any) {
-    console.error(error);
-  }
-}
+  };

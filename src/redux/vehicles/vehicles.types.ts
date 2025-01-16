@@ -25,3 +25,14 @@ export interface AddVehicle {
   licensePlate: string;
   type: string;
 }
+
+export interface VehicleRequestParameters {
+  customer_id: number;
+  type: string;
+  garage: string;
+  license_plate: string;
+  size: number;
+  brand: string;
+  model: string;
+  currently_in_garage: boolean;
+}

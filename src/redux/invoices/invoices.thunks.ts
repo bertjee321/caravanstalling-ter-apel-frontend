@@ -1,11 +1,12 @@
 import axiosInstance from "../../api/axios";
+import { InvoiceInput } from "../../features/invoices/AddInvoice";
 import { AppDispatch } from "../store";
 import {
   fetchInvoices,
   fetchInvoicesFailure,
   fetchInvoicesSuccess,
 } from "./invoices.slice";
-import { AddInvoice, Invoice } from "./invoices.types";
+import { Invoice, InvoiceRequestParameters } from "./invoices.types";
 
 export const getInvoices = () => async (dispatch: AppDispatch) => {
   dispatch(fetchInvoices());
@@ -21,18 +22,20 @@ export const getInvoices = () => async (dispatch: AppDispatch) => {
 };
 
 export const addInvoice =
-  (invoice: AddInvoice) => async (dispatch: AppDispatch) => {
+  (invoice: InvoiceInput) => async (dispatch: AppDispatch) => {
     try {
-      const requestData = {
+      const requestData: InvoiceRequestParameters = {
         amount: invoice.amount,
         due_date: invoice.dueDate,
         invoice_date: invoice.invoiceDate,
-        vehicle_id: invoice.vehicleId,
-        customer_id: invoice.customerId,
+        vehicle_id: 0,
+        customer_id: 0,
+        paid: invoice.paid,
+        payment_date: invoice.paymentDate,
       };
       await axiosInstance.post("/invoices/addinvoice", requestData);
 
-      dispatch(getInvoices());
+      dispatch({ type: "INVOICE ADDED" }); // should set invoice to state!
     } catch (error: any) {
       console.error(error);
     }

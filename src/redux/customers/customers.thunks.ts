@@ -7,7 +7,7 @@ import {
   fetchCustomersFailure,
   fetchCustomersSuccess,
 } from "./customers.slice";
-import { Customer } from "./customers.types";
+import { Customer, CustomerRequestParameters } from "./customers.types";
 
 export const getCustomers = () => async (dispatch: AppDispatch) => {
   dispatch(fetchCustomers());
@@ -25,7 +25,7 @@ export const getCustomers = () => async (dispatch: AppDispatch) => {
 export const addCustomer =
   (customer: CustomerInput) => async (dispatch: AppDispatch) => {
     try {
-      const requestData = {
+      const requestData: CustomerRequestParameters = {
         last_name: customer.lastName,
         affix: customer.affix,
         first_name: customer.firstName,
@@ -37,11 +37,10 @@ export const addCustomer =
         postal_code: customer.postalCode,
         city: customer.city,
       };
-      const response = await axiosInstance.post<
-        AxiosResponse<{ id: number }, any>
-      >("/customers/addcustomer", requestData);
-
-      const customerId = response.data.data.id; // Might be used later on
+      await axiosInstance.post<AxiosResponse<{ id: number }, any>>(
+        "/customers/addcustomer",
+        requestData
+      );
 
       dispatch({ type: "CUSTOMER ADDED" }); // should set customer to state!
     } catch (error: any) {
