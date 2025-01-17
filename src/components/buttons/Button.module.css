@@ -1,0 +1,50 @@
+/* Base add button styles */
+.button {
+  background: #74ebd5; /* Default light cyan background */
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  max-width: 200px; /* Limit button width */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Hover and active states for all buttons */
+.button:hover {
+  transform: translateY(-2px); /* Slight lift on hover */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+}
+
+.button:active {
+  transform: translateY(2px); /* Push-down effect */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Reduced shadow */
+}
+
+.button--blue {
+  background: #2196f3; /* Blue for vehicles */
+}
+
+.button--blue:hover {
+  background: #1976d2; /* Darker blue on hover */
+}
+
+.button--green {
+  background: #4caf50; /* Green for customers */
+}
+
+.button--green:hover {
+  background: #45a049; /* Darker green on hover */
+}
+
+.button--orange {
+  background: #ff9800; /* Orange for invoices */
+}
+
+.button--orange:hover {
+  background: #fb8c00; /* Darker orange on hover */
+}
