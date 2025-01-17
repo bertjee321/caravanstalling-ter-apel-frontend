@@ -1,15 +1,12 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import Spinner from "../../components/spinner/Spinner";
+import Table from "../../components/table/Table";
 import {
   selectInvoices,
   selectInvoicesError,
   selectInvoicesIsLoading,
 } from "../../redux/invoices/invoices.selectors";
-import { getInvoices } from "../../redux/invoices/invoices.thunks";
-import { AppDispatch } from "../../redux/store";
 import { formatCurrency } from "../../utils/format-currency.utils";
-import Spinner from "../../components/spinner/Spinner";
-import Table from "../../components/table/Table";
 
 const TABLE_HEADERS = [
   { key: "id", label: "ID" },
@@ -22,15 +19,15 @@ const TABLE_HEADERS = [
 ];
 
 const InvoiceList: React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
+  // const dispatch: AppDispatch = useDispatch();
 
   const isLoading = useSelector(selectInvoicesIsLoading);
   const invoiceList = useSelector(selectInvoices);
   const error = useSelector(selectInvoicesError);
 
-  useEffect(() => {
-    dispatch(getInvoices());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getInvoices());
+  // }, []);
 
   const getStatus = (paid: boolean | null): string => {
     return paid ? "Betaald" : "Open";

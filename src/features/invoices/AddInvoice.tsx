@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { addInvoice } from "../../api/invoice.api";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import formStyles from "../../styles/form-styles.module.css";
 import AmountInput from "./inputs/AmountInput";
@@ -14,13 +15,23 @@ export interface InvoiceInput {
   paid: boolean;
 }
 
-const AddInvoice: React.FC = () => {
+interface AddInvoiceProps {
+  customerId: number;
+  vehicleId: number;
+  onComplete: () => void;
+}
+
+const AddInvoice: React.FC<AddInvoiceProps> = ({
+  customerId,
+  vehicleId,
+  onComplete,
+}) => {
   const [resetForm, setResetForm] = useState(0);
   const [invoice, setInvoice] = useState<InvoiceInput>({
     amount: 0,
     invoiceDate: new Date().toISOString().split("T")[0], // default to today's date in the format YYYY-MM-DD
     dueDate: new Date().toISOString().split("T")[0], // default to today's date in the format YYYY-MM-DD
-    paymentDate: null, // default to today's date in the format YYYY-MM-DD
+    paymentDate: null,
     paid: false,
   });
 
@@ -28,10 +39,19 @@ const AddInvoice: React.FC = () => {
     setInvoice((prevState) => ({ ...prevState, ...newState }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("Submitting Invoice Data", invoice);
+    // ADD VALIDATION
+    // if (Object.values(customerInputErrors).some((error) => error)) { return; }
+
+    try {
+      await addInvoice(invoice, customerId, vehicleId);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      onComplete();
+    }
 
     setResetForm((prevState) => prevState + 1);
   };

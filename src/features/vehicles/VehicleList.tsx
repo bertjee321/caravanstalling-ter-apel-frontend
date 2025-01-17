@@ -1,15 +1,12 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Spinner from "../../components/spinner/Spinner";
 import Table from "../../components/table/Table";
 import { Invoice } from "../../redux/invoices/invoices.types";
-import { AppDispatch } from "../../redux/store";
 import {
   selectVehicles,
   selectVehiclesError,
   selectVehiclesIsLoading,
 } from "../../redux/vehicles/vehicles.selectors";
-import { getVehicles } from "../../redux/vehicles/vehicles.thunks";
 
 const TABLE_HEADERS = [
   { key: "id", label: "ID" },
@@ -21,15 +18,15 @@ const TABLE_HEADERS = [
 ];
 
 const VehicleList: React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
+  // const dispatch: AppDispatch = useDispatch();
 
   const isLoading = useSelector(selectVehiclesIsLoading);
   const vehicleList = useSelector(selectVehicles);
   const error = useSelector(selectVehiclesError);
 
-  useEffect(() => {
-    dispatch(getVehicles());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getVehicles());
+  // }, []);
 
   const getOpenInvoices = (invoices: Invoice[]): number => {
     return invoices.filter((invoice) => !invoice.paid).length;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { addVehicle } from "../../api/vehicle.api";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import { Garage, VehicleType } from "../../enums";
 import formStyles from "../../styles/form-styles.module.css";
@@ -18,7 +19,12 @@ export interface VehicleInput {
   model: string;
 }
 
-const AddVehicle: React.FC = () => {
+interface AddVehicleProps {
+  customerId: number;
+  onComplete: () => void;
+}
+
+const AddVehicle: React.FC<AddVehicleProps> = ({ customerId, onComplete }) => {
   const [resetForm, setResetForm] = useState(0);
   const [vehicle, setVehicle] = useState<VehicleInput>({
     vehicleType: VehicleType.OTHER,
@@ -33,10 +39,21 @@ const AddVehicle: React.FC = () => {
     setVehicle((prevState) => ({ ...prevState, ...newState }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("Submitting Vehicle Data", vehicle);
+    // TODO: Add validation
+    // if (Object.values(customerInputErrors).some((error) => error)) {
+    //   return;
+    // }
+
+    try {
+      await addVehicle(vehicle, customerId);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      onComplete();
+    }
 
     setResetForm((prev) => prev + 1);
   };
