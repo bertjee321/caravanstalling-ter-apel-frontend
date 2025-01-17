@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Spinner from "../../components/spinner/Spinner";
 import Table from "../../components/table/Table";
 import {
@@ -7,13 +6,13 @@ import {
   selectCustomersError,
   selectCustomersIsLoading,
 } from "../../redux/customers/customers.selectors";
-import { getCustomers } from "../../redux/customers/customers.thunks";
-import { AppDispatch } from "../../redux/store";
 import { getInvoicesAmount } from "../../utils/customer.utils";
 import { formatCurrency } from "../../utils/format-currency.utils";
+import { useNavigate } from "react-router-dom";
 
 const CustomerList: React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
+  // const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoading = useSelector(selectCustomersIsLoading);
   const customerList = useSelector(selectCustomers);
   const error = useSelector(selectCustomersError);
@@ -46,8 +45,8 @@ const CustomerList: React.FC = () => {
   };
 
   const handleRowClick = (row: { [key: string]: any }) => {
-    console.log("Row clicked:", row);
-    // You can handle the row click here, e.g., navigate, show details, etc.
+    // TODO: Add type for row
+    navigate("/customers/customer-details/" + row.id.toString());
   };
 
   const HEADERS = [
@@ -60,9 +59,9 @@ const CustomerList: React.FC = () => {
     { key: "invoices_amount", label: "Openstaand" },
   ];
 
-  useEffect(() => {
-    dispatch(getCustomers());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getCustomers());
+  // }, [dispatch]);
 
   if (isLoading) {
     return <Spinner />; // Loading spinner or overlay

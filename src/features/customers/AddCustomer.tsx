@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import SubmitButton from "../../components/buttons/SubmitButton";
-import { addCustomer } from "../../redux/customers/customers.thunks";
-import { AppDispatch } from "../../redux/store";
+// import { addCustomer } from "../../redux/customers/customers.thunks";
+import { useNavigate } from "react-router-dom";
 import formStyles from "../../styles/form-styles.module.css";
 import AffixInput from "./inputs/AffixInput";
 import CityInput from "./inputs/CityInput";
@@ -14,6 +13,7 @@ import LastNameInput from "./inputs/LastNameInput";
 import PhoneInput from "./inputs/PhoneInput";
 import PostalCodeInput from "./inputs/PostalCodeInput";
 import StreetInput from "./inputs/StreetInput";
+import { addCustomer } from "../../api/customer.api";
 
 export interface CustomerInput {
   firstName: string;
@@ -29,7 +29,7 @@ export interface CustomerInput {
 }
 
 const AddCustomer: React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
   const [resetForm, setResetForm] = useState(0);
   const [customer, setCustomer] = useState<CustomerInput>({
     firstName: "",
@@ -62,14 +62,16 @@ const AddCustomer: React.FC = () => {
     setCustomerInputErrors((prevState) => ({ ...prevState, ...newErrors }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (Object.values(customerInputErrors).some((error) => error)) {
       return;
     }
 
-    dispatch(addCustomer(customer));
+    const result = await addCustomer(customer);
+
+    navigate(`/customers/customer-details/${result}`);
 
     // Reset Form
     setResetForm((prevState) => prevState + 1);

@@ -4,6 +4,7 @@ import MainLayout from "./components/layout/MainLayout";
 import Login from "./features/auth/Login";
 import Logout from "./features/auth/Logout";
 import AddCustomer from "./features/customers/AddCustomer";
+import CustomerDetailsPage from "./features/customers/CustomerDetailsPage";
 import CustomerList from "./features/customers/CustomerList";
 import Dashboard from "./features/dashboard/Dashboard";
 import AddInvoice from "./features/invoices/AddInvoice";
@@ -21,6 +22,10 @@ function App() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="customers" element={<CustomerList />} />
         <Route path="customers/add-customer" element={<AddCustomer />} />
+        <Route
+          path="customers/customer-details/:id"
+          element={<CustomerDetailsPage />}
+        />
         <Route path="vehicles" element={<VehicleList />} />
         <Route path="vehicles/add-vehicle" element={<AddVehicle />} />
         <Route path="invoices" element={<InvoiceList />} />
