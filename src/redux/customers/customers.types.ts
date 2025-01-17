@@ -1,5 +1,5 @@
-import { Invoice } from "../invoices/invoices.types";
-import { Vehicle } from "../vehicles/vehicles.types";
+import { Invoice, InvoiceResponseParameters } from "../invoices/invoices.types";
+import { Vehicle, VehicleResponseParameters } from "../vehicles/vehicles.types";
 
 export interface CustomersState {
   customers: Customer[];
@@ -37,4 +37,22 @@ export interface CustomerRequestParameters {
   house_number_addition: string | null;
   postal_code: string;
   city: string;
+}
+
+export interface CustomerResponseParameters {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  last_name: string;
+  affix: string | null;
+  first_name: string;
+  email: string;
+  phone_number: string;
+  street: string | null;
+  house_number: string | null;
+  house_number_addition: string | null;
+  postal_code: string | null;
+  city: string | null;
+  vehicles: VehicleResponseParameters[];
+  invoices: InvoiceResponseParameters[];
 }

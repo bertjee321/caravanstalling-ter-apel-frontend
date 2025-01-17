@@ -38,3 +38,16 @@ export interface InvoiceRequestParameters {
   paid: boolean | null;
   payment_date: string | null;
 }
+
+export interface InvoiceResponseParameters {
+  id: number;
+  customer_id: number;
+  vehicle_id: number;
+  amount: number;
+  invoice_date: string;
+  due_date: string;
+  paid: boolean;
+  payment_date: string | null;
+  created_at: string;
+  updated_at: string;
+}
