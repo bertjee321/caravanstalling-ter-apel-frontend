@@ -7,9 +7,7 @@ import AddCustomer from "./features/customers/AddCustomer";
 import CustomerDetailsPage from "./features/customers/CustomerDetailsPage";
 import CustomerList from "./features/customers/CustomerList";
 import Dashboard from "./features/dashboard/Dashboard";
-import AddInvoice from "./features/invoices/AddInvoice";
 import InvoiceList from "./features/invoices/InvoiceList";
-import AddVehicle from "./features/vehicles/AddVehicle";
 import VehicleList from "./features/vehicles/VehicleList";
 
 function App() {
@@ -27,9 +25,7 @@ function App() {
           element={<CustomerDetailsPage />}
         />
         <Route path="vehicles" element={<VehicleList />} />
-        <Route path="vehicles/add-vehicle" element={<AddVehicle />} />
         <Route path="invoices" element={<InvoiceList />} />
-        <Route path="invoices/add-invoice" element={<AddInvoice />} />
       </Route>
     </Routes>
   );
