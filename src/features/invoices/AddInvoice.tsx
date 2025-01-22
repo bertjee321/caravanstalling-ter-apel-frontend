@@ -8,11 +8,12 @@ import InvoiceDateInput from "./inputs/InvoiceDateInput";
 import PaymentDateInput from "./inputs/PaymentDateInput";
 
 export interface InvoiceInput {
-  amount: number;
+  amountExclVAT: number,
   invoiceDate: string;
   dueDate: string;
   paymentDate: string | null;
   paid: boolean;
+  payment_date: string | null;
 }
 
 interface AddInvoiceProps {
@@ -28,11 +29,12 @@ const AddInvoice: React.FC<AddInvoiceProps> = ({
 }) => {
   const [resetForm, setResetForm] = useState(0);
   const [invoice, setInvoice] = useState<InvoiceInput>({
-    amount: 0,
+    amountExclVAT: 0,
     invoiceDate: new Date().toISOString().split("T")[0], // default to today's date in the format YYYY-MM-DD
     dueDate: new Date().toISOString().split("T")[0], // default to today's date in the format YYYY-MM-DD
     paymentDate: null,
     paid: false,
+    payment_date: null,
   });
 
   const handleChange = (newState: { [key: string]: string | number }) => {
@@ -46,7 +48,7 @@ const AddInvoice: React.FC<AddInvoiceProps> = ({
     // if (Object.values(customerInputErrors).some((error) => error)) { return; }
 
     try {
-      await addInvoice(invoice, customerId, vehicleId);
+      await addInvoice(invoice, customerId);
     } catch (error) {
       console.error(error);
     } finally {

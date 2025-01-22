@@ -23,7 +23,7 @@ const AmountInput: React.FC<InputProps> = ({
       <label>Bedrag</label>
       <input
         type="number"
-        name="amount"
+        name="amountExclVAT"
         onChange={changeHandler}
         onBlur={inputBlurHandler}
         value={value}

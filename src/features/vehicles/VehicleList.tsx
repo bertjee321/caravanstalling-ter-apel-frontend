@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import Spinner from "../../components/spinner/Spinner";
 import Table from "../../components/table/Table";
-import { Invoice } from "../../redux/invoices/invoices.types";
 import {
   selectVehicles,
   selectVehiclesError,
@@ -12,9 +11,8 @@ const TABLE_HEADERS = [
   { key: "id", label: "ID" },
   { key: "type", label: "Type" },
   { key: "license_plate", label: "Kenteken" },
-  { key: "garage", label: "Schuur" },
+  { key: "garage", label: "Gestald (locatie)" },
   { key: "customer", label: "Eigenaar" },
-  { key: "invoices", label: "Openstaande facturen" },
 ];
 
 const VehicleList: React.FC = () => {
@@ -27,10 +25,6 @@ const VehicleList: React.FC = () => {
   // useEffect(() => {
   //   dispatch(getVehicles());
   // }, []);
-
-  const getOpenInvoices = (invoices: Invoice[]): number => {
-    return invoices.filter((invoice) => !invoice.paid).length;
-  };
 
   const handleRowClick = (row: { [key: string]: any }) => {
     console.log("Row clicked:", row);
@@ -53,7 +47,7 @@ const VehicleList: React.FC = () => {
     return {
       ...vehicle,
       customer: `${vehicle.customer.first_name} ${vehicle.customer.last_name}`,
-      invoices: getOpenInvoices(vehicle.invoices),
+      garage: vehicle.garage ? `Ja (${vehicle.garage})` : "Nee",
     };
   });
 
