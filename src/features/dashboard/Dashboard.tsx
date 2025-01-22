@@ -10,6 +10,7 @@ import { AppDispatch } from "../../redux/store";
 import { selectVehiclesIsLoading } from "../../redux/vehicles/vehicles.selectors";
 import { getVehicles } from "../../redux/vehicles/vehicles.thunks";
 import "./Dashboard.css";
+import { getContracts } from "../../redux/contracts/contracts.thunks";
 
 enum ButtonType {
   CUSTOMER = "customer",
@@ -29,6 +30,7 @@ const Dashboard: React.FC = () => {
     dispatch(getCustomers());
     dispatch(getVehicles());
     dispatch(getInvoices());
+    dispatch(getContracts());
   }, []);
 
   const handleButtonClick = (buttonType: ButtonType) => {
