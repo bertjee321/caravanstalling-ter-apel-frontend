@@ -1,6 +1,12 @@
 import { AxiosResponse } from "axios";
 import { CustomerInput } from "../features/customers/AddCustomer";
-import { CustomerRequestParameters } from "../redux/customers/customers.types";
+import { ContractResponseParameters } from "../models/contract.model";
+import {
+  CustomerRequestParameters,
+  CustomerResponseParameters,
+} from "../models/customer.model";
+import { InvoiceResponseParameters } from "../models/invoice.model";
+import { VehicleResponseParameters } from "../models/vehicle.model";
 import axiosInstance from "./axios";
 
 const API_ROUTE = "/customers";
@@ -27,5 +33,37 @@ export const addCustomer = async (customer: CustomerInput) => {
     return response.data.data.id;
   } catch (error: any) {
     console.error(error);
+  }
+};
+
+export const fetchCustomerById = async (customerId: number) => {
+  try {
+    if (customerId === undefined) {
+      throw new Error("No customer ID provided");
+    }
+
+    const mapResponseToCustomer = (
+      response: CustomerResponseParameters
+    ): {
+      customer: Partial<CustomerResponseParameters>;
+      vehicles: VehicleResponseParameters[];
+      invoices: InvoiceResponseParameters[];
+      contracts: ContractResponseParameters[];
+    } => {
+      return {
+        customer: response,
+        vehicles: response.vehicles,
+        invoices: response.invoices,
+        contracts: response.contracts,
+      };
+    };
+
+    const response = await axiosInstance.get<CustomerResponseParameters[]>(
+      `/customers//getcustomer/${customerId}`
+    );
+
+    return mapResponseToCustomer(response.data[0]);
+  } catch (err) {
+    throw new Error("Failed to fetch customer data");
   }
 };

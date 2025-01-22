@@ -3,9 +3,9 @@ import { VehicleInput } from "../features/vehicles/AddVehicle";
 import axiosInstance from "./axios";
 import { VehicleRequestParameters } from "../models/vehicle.model";
 
-const API_ROUTE = "/vehicles";
+const API_ROUTE = "/contracts";
 
-export const addVehicle = async (vehicle: VehicleInput, customerId: number) => {
+export const addContract = async (vehicle: VehicleInput, customerId: number) => {
   const requestData: VehicleRequestParameters = {
     customer_id: customerId,
     type: vehicle.vehicleType,
@@ -20,7 +20,7 @@ export const addVehicle = async (vehicle: VehicleInput, customerId: number) => {
   try {
     const response = await axiosInstance.post<
       AxiosResponse<{ id: number }, any>
-    >(`${API_ROUTE}/addVehicle`, requestData);
+    >(`${API_ROUTE}/addcontract`, requestData);
 
     return response.data.data.id;
   } catch (error: any) {

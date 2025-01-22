@@ -1,21 +1,19 @@
 import { AxiosResponse } from "axios";
 import { InvoiceInput } from "../features/invoices/AddInvoice";
-import { InvoiceRequestParameters } from "../redux/invoices/invoices.types";
 import axiosInstance from "./axios";
+import { InvoiceRequestParameters } from "../models/invoice.model";
 
 const API_ROUTE = "/invoices";
 
 export const addInvoice = async (
   invoice: InvoiceInput,
-  customerId: number,
-  vehicleId: number
+  contractId: number,
 ) => {
   const requestData: InvoiceRequestParameters = {
-    customer_id: customerId,
-    vehicle_id: vehicleId,
-    amount: invoice.amount,
+    contract_id: contractId,
     invoice_date: invoice.invoiceDate,
     due_date: invoice.dueDate,
+    amount_excl_VAT: invoice.amountExclVAT,
     paid: invoice.paid,
     payment_date: invoice.paymentDate,
   };
