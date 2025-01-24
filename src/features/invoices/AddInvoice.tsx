@@ -6,35 +6,34 @@ import AmountInput from "./inputs/AmountInput";
 import DueDateInput from "./inputs/DueDateInput";
 import InvoiceDateInput from "./inputs/InvoiceDateInput";
 import PaymentDateInput from "./inputs/PaymentDateInput";
+import Checkbox from "../../components/checkbox/Checkbox";
 
 export interface InvoiceInput {
-  amountExclVAT: number,
+  amountExclVAT: number;
   invoiceDate: string;
   dueDate: string;
   paymentDate: string | null;
   paid: boolean;
-  payment_date: string | null;
 }
 
 interface AddInvoiceProps {
+  contractId: number;
   customerId: number;
-  vehicleId: number;
   onComplete: () => void;
 }
 
 const AddInvoice: React.FC<AddInvoiceProps> = ({
+  contractId,
   customerId,
-  vehicleId,
   onComplete,
 }) => {
   const [resetForm, setResetForm] = useState(0);
   const [invoice, setInvoice] = useState<InvoiceInput>({
-    amountExclVAT: 0,
     invoiceDate: new Date().toISOString().split("T")[0], // default to today's date in the format YYYY-MM-DD
     dueDate: new Date().toISOString().split("T")[0], // default to today's date in the format YYYY-MM-DD
+    amountExclVAT: 0,
     paymentDate: null,
     paid: false,
-    payment_date: null,
   });
 
   const handleChange = (newState: { [key: string]: string | number }) => {
@@ -48,7 +47,7 @@ const AddInvoice: React.FC<AddInvoiceProps> = ({
     // if (Object.values(customerInputErrors).some((error) => error)) { return; }
 
     try {
-      await addInvoice(invoice, customerId);
+      await addInvoice(invoice, contractId, customerId);
     } catch (error) {
       console.error(error);
     } finally {
@@ -56,6 +55,10 @@ const AddInvoice: React.FC<AddInvoiceProps> = ({
     }
 
     setResetForm((prevState) => prevState + 1);
+  };
+
+  const onPaidChange = (paid: boolean) => {
+    setInvoice((prevState) => ({ ...prevState, paid }));
   };
 
   const form = (
@@ -76,7 +79,14 @@ const AddInvoice: React.FC<AddInvoiceProps> = ({
         reset={resetForm}
         isRequired={true}
       />
-      <PaymentDateInput onStateChange={handleChange} reset={resetForm} />
+      <Checkbox label="Betaald" onHandleChange={onPaidChange} />
+      {invoice.paid && (
+        <PaymentDateInput
+          onStateChange={handleChange}
+          reset={resetForm}
+          isRequired={true}
+        />
+      )}
     </div>
   );
 

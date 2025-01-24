@@ -20,7 +20,7 @@ const AmountInput: React.FC<InputProps> = ({
 
   return (
     <>
-      <label>Bedrag</label>
+      <label>Bedrag (excl. BTW)</label>
       <input
         type="number"
         name="amountExclVAT"

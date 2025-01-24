@@ -8,7 +8,7 @@ const PaymentDateInput: React.FC<InputProps> = ({
   onStateChange,
 }) => {
   const { value, valueChangeHandler, inputBlurHandler, getErrorStyling } =
-    useInput(() => true, reset, onGetError);
+    useInput((value) => value.trim() !== "", reset, onGetError);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     valueChangeHandler(e);
