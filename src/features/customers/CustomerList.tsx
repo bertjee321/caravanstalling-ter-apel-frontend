@@ -20,7 +20,7 @@ const CustomerList: React.FC = () => {
   const updatedList = customerList.map((customer) => {
     return {
       ...customer,
-      vehicles: customer.vehicles.length,
+      vehicles: customer?.vehicles?.length,
       invoices_amount: getInvoicesAmount(customer.invoices),
     };
   });

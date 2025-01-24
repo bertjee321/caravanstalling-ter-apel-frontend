@@ -1,0 +1,98 @@
+.customer-details {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.customer-header h1 {
+  margin: 0;
+  color: #222;
+}
+
+.customer-header p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.tabs {
+  display: flex;
+  margin: 20px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  color: #555;
+  transition: background 0.3s ease;
+}
+
+.tab:hover,
+.tab.active {
+  background-color: #2196f3;
+  color: #fff;
+}
+
+.sections {
+  margin-top: 20px;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.vehicle,
+.invoice {
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f7f7f7;
+}
+
+.vehicle h3,
+.invoice p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.btn {
+  padding: 8px 12px;
+  margin: 10px 0;
+  background: #ff9800;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn:hover {
+  background: #fb8c00;
+}
+
+.collapse-btn {
+  background: none;
+  border: none;
+  color: #2196f3;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.collapse-btn:hover {
+  text-decoration: underline;
+}

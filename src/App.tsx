@@ -4,7 +4,7 @@ import MainLayout from "./components/layout/MainLayout";
 import Login from "./features/auth/Login";
 import Logout from "./features/auth/Logout";
 import AddCustomer from "./features/customers/AddCustomer";
-import CustomerDetailsPage from "./features/customers/CustomerDetailsPage";
+import CustomerDetailsPage from "./features/customers/customer-details/CustomerDetailsPage";
 import CustomerList from "./features/customers/CustomerList";
 import Dashboard from "./features/dashboard/Dashboard";
 import InvoiceList from "./features/invoices/InvoiceList";
