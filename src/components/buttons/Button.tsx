@@ -5,6 +5,8 @@ export enum ButtonStyle {
   Blue = "blue",
   Green = "green",
   Orange = "orange",
+  Outline = "outline",
+  Minimal = "minimal",
 }
 
 interface PrimaryButtonProps
@@ -12,6 +14,7 @@ interface PrimaryButtonProps
   children: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   buttonStyle?: ButtonStyle;
+  isSmall?: boolean;
 }
 
 const Button: React.FC<PrimaryButtonProps> = ({ children, ...props }) => {
@@ -23,14 +26,20 @@ const Button: React.FC<PrimaryButtonProps> = ({ children, ...props }) => {
         return "button--green";
       case ButtonStyle.Orange:
         return "button--orange";
+      case ButtonStyle.Outline:
+        return "button--outline";
+      case ButtonStyle.Minimal:
+        return "button--minimal";
       default:
-        return "buton--blue";
+        return "button--blue";
     }
   };
 
   return (
     <button
-      className={`${styles["button"]} ${styles[getButtonColorClass()]}`}
+      className={`${styles["button"]} ${styles[getButtonColorClass()]} ${
+        props.isSmall ? styles["button--small"] : ""
+      }`}
       onClick={props.onClick}
     >
       {children}

@@ -25,6 +25,15 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Reduced shadow */
 }
 
+/* Small button variant */
+.button--small {
+  font-size: 0.75rem; /* Slightly smaller font */
+  padding: 8px 8px; /* Reduced padding */
+  max-width: 150px; /* Smaller max-width */
+  margin: 10px 0;
+}
+
+/* Blue button styles */
 .button--blue {
   background: #2196f3; /* Blue for vehicles */
 }
@@ -33,6 +42,7 @@
   background: #1976d2; /* Darker blue on hover */
 }
 
+/* Green button styles */
 .button--green {
   background: #4caf50; /* Green for customers */
 }
@@ -41,10 +51,59 @@
   background: #45a049; /* Darker green on hover */
 }
 
+/* Orange button styles */
 .button--orange {
   background: #ff9800; /* Orange for invoices */
 }
 
 .button--orange:hover {
   background: #fb8c00; /* Darker orange on hover */
+}
+
+/* Outline button styles */
+.button--outline {
+  background: transparent; /* Transparent background */
+  color: #555; /* Default text color */
+  border: 2px solid #555; /* Outline border */
+  /* padding: 10px 16px; Padding adjusted for border */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover and active states for outline buttons */
+.button--outline:hover {
+  background: #f9f9f9; /* Subtle background on hover */
+  color: #333; /* Slightly darker text */
+  border-color: #333; /* Darker outline on hover */
+}
+
+.button--outline:active {
+  background: #e0e0e0; /* Slightly darker background */
+  color: #000; /* Darker text */
+  border-color: #000; /* Darker outline */
+}
+
+/* Minimal button without outline */
+.button--minimal {
+  background: transparent; /* Transparent background */
+  color: #555; /* Neutral text color */
+  padding: 6px 10px; /* Compact padding */
+  font-size: 0.75rem; /* Smaller font size */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  transition: all 0.2s ease-in-out; /* Smooth transitions */
+}
+
+/* Hover effect for minimal button */
+.button--minimal:hover {
+  background: rgba(0, 0, 0, 0.05); /* Subtle background highlight */
+  border-color: rgba(0, 0, 0, 0.2); /* Darker border highlight */
+  color: #333; /* Slightly darker text color */
+}
+
+/* Smaller variant for minimal button */
+.button--minimal.button--small {
+  font-size: 0.7rem; /* Tiny font size */
+  padding: 4px 8px; /* Smaller padding */
+  border-radius: 3px; /* Slightly smaller corners */
 }
