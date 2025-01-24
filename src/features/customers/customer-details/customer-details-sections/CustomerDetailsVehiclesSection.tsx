@@ -1,15 +1,15 @@
 import { useState } from "react";
+import Button, { ButtonStyle } from "../../../../components/buttons/Button";
 import { ContractResponseParameters } from "../../../../models/contract.model";
 import { VehicleResponseParameters } from "../../../../models/vehicle.model";
 import { formatLicensePlate } from "../../../../utils/vehicle.utils";
 import styles from "../CustomerDetails.module.css";
-import Button, { ButtonStyle } from "../../../../components/buttons/Button";
 
 interface CustomerDetailsVehiclesSectionProps {
   vehicles: VehicleResponseParameters[];
   contracts: ContractResponseParameters[];
   onAddContract: (vehicleId: number) => void;
-  onAddInvoice: (contractId: number) => void;
+  onAddInvoice: (contractId: number, amount: number) => void;
 }
 
 export const CustomerDetailsVehiclesSection: React.FC<
@@ -60,7 +60,9 @@ export const CustomerDetailsVehiclesSection: React.FC<
                       {" "}
                       <Button
                         buttonStyle={ButtonStyle.Minimal}
-                        onClick={() => onAddInvoice(contract.id)}
+                        onClick={() =>
+                          onAddInvoice(contract.id, contract.price_excl_VAT)
+                        }
                         isSmall={true}
                       >
                         Factuur maken

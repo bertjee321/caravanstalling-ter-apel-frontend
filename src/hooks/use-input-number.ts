@@ -11,6 +11,10 @@ const useInputNumber = (
   const valueIsValid = validateValue(enteredValue);
   const hasError = !valueIsValid && isTouched;
 
+  const setFirstValue = (value: number) => { 
+    setEnteredValue(value);
+  }
+
   useEffect(() => {
     valueResetHandler();
   }, [reset]);
@@ -43,6 +47,7 @@ const useInputNumber = (
     valueResetHandler,
     inputBlurHandler,
     getErrorStyling,
+    setFirstValue
   };
 };
 

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useInputNumber from "../../../hooks/use-input-number";
 import { InputProps } from "../../../models/input-props.model";
 
@@ -5,16 +6,28 @@ const AmountInput: React.FC<InputProps> = ({
   onGetError,
   reset,
   isRequired,
-  onStateChange,
+  onHandleChange,
+  defaultValue,
 }) => {
-  const { value, valueChangeHandler, inputBlurHandler, getErrorStyling } =
-    useInputNumber((value) => value > 0, reset, onGetError);
+  const {
+    value,
+    valueChangeHandler,
+    inputBlurHandler,
+    getErrorStyling,
+    setFirstValue,
+  } = useInputNumber((value) => value > 0, reset, onGetError);
+
+  useEffect(() => {
+    if (defaultValue) {
+      setFirstValue(Number(defaultValue));
+    }
+  }, [defaultValue]);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     valueChangeHandler(e);
 
-    if (onStateChange) {
-      onStateChange({ [e.target.name]: e.target.value });
+    if (onHandleChange) {
+      onHandleChange(e);
     }
   };
 

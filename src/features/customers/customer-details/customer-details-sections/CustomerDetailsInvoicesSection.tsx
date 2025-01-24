@@ -2,6 +2,7 @@ import Button, { ButtonStyle } from "../../../../components/buttons/Button";
 import ButtonContainerVertical from "../../../../components/buttons/button-containers/ButtonContainerVertical";
 import { InvoiceResponseParameters } from "../../../../models/invoice.model";
 import { reverseDate } from "../../../../utils/date.utils";
+import { formatCurrency } from "../../../../utils/format-currency.utils";
 import styles from "../CustomerDetails.module.css";
 
 export const CustomerDetailsInvoicesSection: React.FC<{
@@ -13,7 +14,7 @@ export const CustomerDetailsInvoicesSection: React.FC<{
       {invoices.map((invoice) => (
         <div className={styles["invoice"]} key={invoice.id}>
           <p>
-            #{invoice.id} - €{invoice.amount_incl_VAT} -{" "}
+            #{invoice.id} - {formatCurrency(invoice.amount_incl_VAT)} -{" "}
             {invoice.paid
               ? `Betaald op ${reverseDate(invoice.payment_date!)}`
               : "Openstaand"}

@@ -14,7 +14,7 @@ interface CustomerDetailsProps {
   contracts: ContractResponseParameters[];
   invoices: InvoiceResponseParameters[];
   onAddContract: (vehicleId: number) => void;
-  onAddInvoice: (contractId: number) => void;
+  onAddInvoice: (contractId: number, amount: number) => void;
 }
 
 enum CustomerDetailsTab {

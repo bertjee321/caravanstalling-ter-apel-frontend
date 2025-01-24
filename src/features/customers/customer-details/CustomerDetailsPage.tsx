@@ -25,6 +25,7 @@ const CustomerDetailsPage = () => {
   const [invoiceModalOpen, setInvoiceModalOpen] = useState<boolean>(false);
   const [vehicleId, setVehicleId] = useState<number>(0);
   const [contractId, setContractId] = useState<number>(0);
+  const [contractAmount, setContractAmount] = useState<number>(0);
 
   useEffect(() => {
     fetchData();
@@ -51,7 +52,8 @@ const CustomerDetailsPage = () => {
     setContractModalOpen(false);
   };
 
-  const invoiceModalOpenHandler = (contractId: number) => {
+  const invoiceModalOpenHandler = (contractId: number, amount: number) => {
+    setContractAmount(amount);
     setContractId(contractId);
     setInvoiceModalOpen(true);
   };
@@ -65,6 +67,7 @@ const CustomerDetailsPage = () => {
     invoiceModalCloseHandler();
     setContractId(0);
     setVehicleId(0);
+    setContractAmount(0);
     fetchData();
   };
 
@@ -94,6 +97,7 @@ const CustomerDetailsPage = () => {
           customerId={data.customer.id!}
           contractId={contractId}
           onComplete={handleOnComplete}
+          defaultValues={{ amountExclVAT: contractAmount }}
         />
       </Modal>
 
