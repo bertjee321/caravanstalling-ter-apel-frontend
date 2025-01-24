@@ -63,6 +63,31 @@
   color: #555; /* Text color for options */
 }
 
+.form-section textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  resize: vertical; /* Allows vertical resizing but prevents horizontal resizing */
+  min-height: 100px; /* Default minimum height */
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-section textarea:focus {
+  border-color: #74ebd5; /* Match focus color with the theme */
+  box-shadow: 0 0 4px rgba(116, 235, 213, 0.5); /* Subtle glow */
+  outline: none;
+}
+
+.form-section textarea::placeholder {
+  color: #aaa; /* Lighter text for placeholder */
+  font-style: italic; /* Optional styling */
+}
+
 .input-row {
   display: flex;
   gap: 10px; /* Adjust the gap as needed */

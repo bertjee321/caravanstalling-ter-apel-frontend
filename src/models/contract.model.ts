@@ -13,7 +13,7 @@ export interface ContractRequestParameters {
   customer_id: number;
   vehicle_id: number;
   contract_start: string;
-  contract_end?: string;
+  contract_end: string | null;
   price_excl_VAT: number;
-  notes?: string;
+  notes: string | null;
 }

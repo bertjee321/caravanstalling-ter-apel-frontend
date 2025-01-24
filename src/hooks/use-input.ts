@@ -16,7 +16,7 @@ const useInput = (
   }, [reset]);
 
   const valueChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     setEnteredValue(e.target.value);
   };
@@ -27,7 +27,7 @@ const useInput = (
   };
 
   const inputBlurHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     setIsTouched(true);
 
