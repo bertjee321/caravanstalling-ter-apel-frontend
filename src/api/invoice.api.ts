@@ -8,9 +8,11 @@ const API_ROUTE = "/invoices";
 export const addInvoice = async (
   invoice: InvoiceInput,
   contractId: number,
+  customerId: number
 ) => {
   const requestData: InvoiceRequestParameters = {
     contract_id: contractId,
+    customer_id: customerId,
     invoice_date: invoice.invoiceDate,
     due_date: invoice.dueDate,
     amount_excl_VAT: invoice.amountExclVAT,

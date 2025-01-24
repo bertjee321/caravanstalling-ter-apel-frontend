@@ -1,20 +1,22 @@
 import { AxiosResponse } from "axios";
-import { VehicleInput } from "../features/vehicles/AddVehicle";
+import { ContractInput } from "../features/contracts/AddContract";
+import { ContractRequestParameters } from "../models/contract.model";
 import axiosInstance from "./axios";
-import { VehicleRequestParameters } from "../models/vehicle.model";
 
 const API_ROUTE = "/contracts";
 
-export const addContract = async (vehicle: VehicleInput, customerId: number) => {
-  const requestData: VehicleRequestParameters = {
+export const addContract = async (
+  contract: ContractInput,
+  customerId: number,
+  vehicleId: number
+) => {
+  const requestData: ContractRequestParameters = {
     customer_id: customerId,
-    type: vehicle.vehicleType,
-    garage: vehicle.garage,
-    license_plate: vehicle.licensePlate,
-    size: vehicle.size,
-    brand: vehicle.brand,
-    model: vehicle.model,
-    currently_in_garage: true,
+    vehicle_id: vehicleId,
+    contract_start: contract.contractStart,
+    contract_end: contract.contractEnd,
+    price_excl_VAT: contract.priceExclVAT,
+    notes: contract.notes,
   };
 
   try {
