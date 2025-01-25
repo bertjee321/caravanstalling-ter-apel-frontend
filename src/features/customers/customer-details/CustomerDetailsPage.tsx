@@ -48,23 +48,15 @@ const CustomerDetailsPage = () => {
     setContractModalOpen(true);
   };
 
-  const contractModalCloseHandler = () => {
-    setContractModalOpen(false);
-  };
-
   const invoiceModalOpenHandler = (contractId: number, amount: number) => {
     setContractAmount(amount);
     setContractId(contractId);
     setInvoiceModalOpen(true);
   };
 
-  const invoiceModalCloseHandler = () => {
-    setInvoiceModalOpen(false);
-  };
-
   const handleOnComplete = () => {
-    contractModalCloseHandler();
-    invoiceModalCloseHandler();
+    setContractModalOpen(false);
+    setInvoiceModalOpen(false);
     setContractId(0);
     setVehicleId(0);
     setContractAmount(0);
@@ -85,14 +77,20 @@ const CustomerDetailsPage = () => {
 
   return (
     <>
-      <Modal isOpen={contractModalOpen} onClose={contractModalCloseHandler}>
+      <Modal
+        isOpen={contractModalOpen}
+        onClose={() => setContractModalOpen(false)}
+      >
         <AddContract
           customerId={data.customer.id!}
           vehicleId={vehicleId}
           onComplete={handleOnComplete}
         />
       </Modal>
-      <Modal isOpen={invoiceModalOpen} onClose={invoiceModalCloseHandler}>
+      <Modal
+        isOpen={invoiceModalOpen}
+        onClose={() => setInvoiceModalOpen(false)}
+      >
         <AddInvoice
           customerId={data.customer.id!}
           contractId={contractId}
