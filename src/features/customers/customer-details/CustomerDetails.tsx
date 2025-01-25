@@ -7,6 +7,8 @@ import CustomerDetailsContractsSection from "./customer-details-sections/Custome
 import CustomerDetailsVehiclesSection from "./customer-details-sections/CustomerDetailsVehiclesSection";
 import styles from "./CustomerDetails.module.css";
 import CustomerDetailsInvoicesSection from "./customer-details-sections/CustomerDetailsInvoicesSection";
+import CustomerDetailsTabs from "./customer-details-tabs/CustomerDetailsTabs";
+import CustomerDetailsPersonalData from "./customer-details-personal-data/CustomerDetailsPersonalData";
 
 interface CustomerDetailsProps {
   customer: Partial<CustomerResponseParameters>;
@@ -17,7 +19,7 @@ interface CustomerDetailsProps {
   onAddInvoice: (contractId: number, amount: number) => void;
 }
 
-enum CustomerDetailsTab {
+export enum CustomerDetailsTab {
   VEHICLES = "vehicles",
   CONTRACTS = "contracts",
   INVOICES = "invoices",
@@ -29,7 +31,7 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = ({
   contracts,
   invoices,
   onAddContract,
-  onAddInvoice
+  onAddInvoice,
 }) => {
   const [activeTab, setActiveTab] = useState<CustomerDetailsTab>(
     CustomerDetailsTab.VEHICLES
@@ -38,58 +40,10 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = ({
   return (
     <div className={styles["customer-details"]}>
       {/* Customer Header */}
-      <div className={styles["customer-header"]}>
-        <h1>
-          {" "}
-          {`${customer.first_name} ${customer.affix ?? ""} ${
-            customer.last_name
-          }`.trim()}
-        </h1>
-        <p>Email: {customer.email}</p>
-        <p>Telefoon: {customer.phone_number}</p>
-        <p>
-          Adres:{" "}
-          {`${customer.street} ${customer.house_number}${
-            customer.house_number_addition
-              ? ` ${customer.house_number_addition}`
-              : ""
-          }, ${customer.postal_code}, ${customer.city}`}
-        </p>
-      </div>
+      <CustomerDetailsPersonalData customer={customer} />
 
       {/* Tabs */}
-      <div className={styles["tabs"]}>
-        <button
-          className={`${styles["tab"]} ${
-            activeTab === CustomerDetailsTab.VEHICLES
-              ? `${styles["active"]}`
-              : ""
-          }`}
-          onClick={() => setActiveTab(CustomerDetailsTab.VEHICLES)}
-        >
-          Voertuigen
-        </button>
-        <button
-          className={`${styles["tab"]} ${
-            activeTab === CustomerDetailsTab.CONTRACTS
-              ? `${styles["active"]}`
-              : ""
-          }`}
-          onClick={() => setActiveTab(CustomerDetailsTab.CONTRACTS)}
-        >
-          Contracten
-        </button>
-        <button
-          className={`${styles["tab"]} ${
-            activeTab === CustomerDetailsTab.INVOICES
-              ? `${styles["active"]}`
-              : ""
-          }`}
-          onClick={() => setActiveTab(CustomerDetailsTab.INVOICES)}
-        >
-          Facturen
-        </button>
-      </div>
+      <CustomerDetailsTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Sections */}
       <div className={styles["sections"]}>
