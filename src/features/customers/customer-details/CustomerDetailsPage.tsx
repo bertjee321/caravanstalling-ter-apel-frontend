@@ -63,6 +63,7 @@ const CustomerDetailsPage = () => {
   const handleOnComplete = () => {
     setContractModalOpen(false);
     setInvoiceModalOpen(false);
+    setVehicleModalOpen(false);
     setContractId(0);
     setVehicleId(0);
     setContractAmount(0);

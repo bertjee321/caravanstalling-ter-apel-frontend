@@ -5,7 +5,7 @@ const SizeInput: React.FC<InputProps> = ({
   onGetError,
   reset,
   isRequired,
-  onStateChange,
+  onHandleChange,
 }) => {
   const { value, valueChangeHandler, inputBlurHandler, getErrorStyling } =
     useInput((value) => +value > 0, reset, onGetError);
@@ -13,8 +13,8 @@ const SizeInput: React.FC<InputProps> = ({
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     valueChangeHandler(e);
 
-    if (onStateChange) {
-      onStateChange({ [e.target.name]: e.target.value });
+    if (onHandleChange) {
+      onHandleChange(e);
     }
   };
 

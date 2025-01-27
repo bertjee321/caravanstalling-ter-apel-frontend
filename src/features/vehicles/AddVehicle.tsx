@@ -9,14 +9,16 @@ import LicensePlateInput from "./inputs/LicensePlateInput";
 import ModelInput from "./inputs/ModelInput";
 import SizeInput from "./inputs/SizeInput";
 import VehicleTypeInput from "./inputs/VehicleTypeInput";
+import Checkbox from "../../components/checkbox/Checkbox";
 
 export interface VehicleInput {
   vehicleType: VehicleType;
-  garage: Garage;
+  garage: Garage | null;
   licensePlate: string;
   size: number;
   brand: string;
   model: string;
+  currentlyStored: boolean;
 }
 
 interface AddVehicleProps {
@@ -26,21 +28,28 @@ interface AddVehicleProps {
 
 const AddVehicle: React.FC<AddVehicleProps> = ({ customerId, onComplete }) => {
   const [resetForm, setResetForm] = useState(0);
-  const [vehicle, setVehicle] = useState<VehicleInput>({
-    vehicleType: VehicleType.OTHER,
-    garage: Garage.GARAGE_ONE,
-    licensePlate: "",
-    size: 0,
-    brand: "",
-    model: "",
-  });
-
-  const handleChange = (newState: { [key: string]: string }) => {
-    setVehicle((prevState) => ({ ...prevState, ...newState }));
-  };
+  const [vehicleType, setVehicleType] = useState<VehicleType>(
+    VehicleType.OTHER
+  );
+  const [garage, setGarage] = useState<Garage>(Garage.GARAGE_ONE);
+  const [licensePlate, setLicensePlate] = useState<string>("");
+  const [size, setSize] = useState<number>(0);
+  const [brand, setBrand] = useState<string>("");
+  const [model, setModel] = useState<string>("");
+  const [currentlyStored, setCurrentlyStored] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const vehicle: VehicleInput = {
+      vehicleType,
+      garage: currentlyStored ? garage : null,
+      licensePlate,
+      size,
+      brand,
+      model,
+      currentlyStored,
+    };
 
     // TODO: Add validation
     // if (Object.values(customerInputErrors).some((error) => error)) {
@@ -61,12 +70,36 @@ const AddVehicle: React.FC<AddVehicleProps> = ({ customerId, onComplete }) => {
   const form = (
     <div className={formStyles["form-section"]}>
       <h3>Voertuiggegevens</h3>
-      <VehicleTypeInput onStateChange={handleChange} reset={resetForm} />
-      <LicensePlateInput onStateChange={handleChange} reset={resetForm} />
-      <BrandInput onStateChange={handleChange} reset={resetForm} />
-      <ModelInput onStateChange={handleChange} reset={resetForm} />
-      <SizeInput onStateChange={handleChange} reset={resetForm} />
-      <GarageInput onStateChange={handleChange} reset={resetForm} />
+      <VehicleTypeInput
+        reset={resetForm}
+        onHandleChange={(e) => setVehicleType(e.target.value as VehicleType)}
+      />
+      <LicensePlateInput
+        reset={resetForm}
+        onHandleChange={(e) => setLicensePlate(e.target.value)}
+      />
+      <BrandInput
+        reset={resetForm}
+        onHandleChange={(e) => setBrand(e.target.value)}
+      />
+      <ModelInput
+        reset={resetForm}
+        onHandleChange={(e) => setModel(e.target.value)}
+      />
+      <SizeInput
+        reset={resetForm}
+        onHandleChange={(e) => setSize(Number(e.target.value))}
+      />
+      <Checkbox
+        label="Voertuig staat momenteel in de schuur"
+        onHandleChange={(isStored) => setCurrentlyStored(isStored)}
+      />
+      {currentlyStored && (
+        <GarageInput
+          reset={resetForm}
+          onHandleChange={(e) => setGarage(e.target.value as Garage)}
+        />
+      )}
     </div>
   );
 
