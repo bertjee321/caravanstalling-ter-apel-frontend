@@ -10,6 +10,7 @@ import CustomerDetails from "./CustomerDetails";
 import Modal from "../../../components/modal/Modal";
 import AddContract from "../../contracts/AddContract";
 import AddInvoice from "../../invoices/AddInvoice";
+import AddVehicle from "../../vehicles/AddVehicle";
 
 const CustomerDetailsPage = () => {
   const { id } = useParams(); // Extract the ID from the route
@@ -23,6 +24,7 @@ const CustomerDetailsPage = () => {
   const [error, setError] = useState<string>("");
   const [contractModalOpen, setContractModalOpen] = useState<boolean>(false);
   const [invoiceModalOpen, setInvoiceModalOpen] = useState<boolean>(false);
+  const [vehicleModalOpen, setVehicleModalOpen] = useState<boolean>(false);
   const [vehicleId, setVehicleId] = useState<number>(0);
   const [contractId, setContractId] = useState<number>(0);
   const [contractAmount, setContractAmount] = useState<number>(0);
@@ -52,6 +54,10 @@ const CustomerDetailsPage = () => {
     setContractAmount(amount);
     setContractId(contractId);
     setInvoiceModalOpen(true);
+  };
+
+  const vehicleModalOpenHandler = () => {
+    setVehicleModalOpen(true);
   };
 
   const handleOnComplete = () => {
@@ -98,6 +104,15 @@ const CustomerDetailsPage = () => {
           defaultValues={{ amountExclVAT: contractAmount }}
         />
       </Modal>
+      <Modal
+        isOpen={vehicleModalOpen}
+        onClose={() => setVehicleModalOpen(false)}
+      >
+        <AddVehicle
+          customerId={data.customer.id!}
+          onComplete={handleOnComplete}
+        />
+      </Modal>
 
       <CustomerDetails
         customer={data.customer}
@@ -106,6 +121,7 @@ const CustomerDetailsPage = () => {
         contracts={data.contracts} // Add contracts here
         onAddContract={contractModalOpenHandler}
         onAddInvoice={invoiceModalOpenHandler}
+        onAddVehicle={vehicleModalOpenHandler}
       />
     </>
   );

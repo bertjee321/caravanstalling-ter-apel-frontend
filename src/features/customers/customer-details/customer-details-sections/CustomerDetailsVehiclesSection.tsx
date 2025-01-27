@@ -8,13 +8,14 @@ import styles from "../CustomerDetails.module.css";
 interface CustomerDetailsVehiclesSectionProps {
   vehicles: VehicleResponseParameters[];
   contracts: ContractResponseParameters[];
+  onAddVehicle: () => void;
   onAddContract: (vehicleId: number) => void;
   onAddInvoice: (contractId: number, amount: number) => void;
 }
 
 export const CustomerDetailsVehiclesSection: React.FC<
   CustomerDetailsVehiclesSectionProps
-> = ({ vehicles, contracts, onAddContract, onAddInvoice }) => {
+> = ({ vehicles, contracts, onAddVehicle, onAddContract, onAddInvoice }) => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   const setCollapsedHandler = () => {
@@ -23,8 +24,21 @@ export const CustomerDetailsVehiclesSection: React.FC<
 
   return (
     <div className={styles["section"]}>
-      <h2>Voertuigen</h2>
+      <h2>
+        Voertuigen{" "}
+        <span>
+          {" "}
+          <Button
+            buttonStyle={ButtonStyle.Minimal}
+            onClick={() => onAddVehicle()}
+            isSmall={true}
+          >
+            Voertuig toevoegen
+          </Button>
+        </span>
+      </h2>
       {vehicles.length === 0 && <p>Geen voertuigen</p>}
+
       {vehicles.map((vehicle) => (
         <div key={vehicle.id} className={styles["vehicle"]}>
           <h3>

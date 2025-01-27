@@ -9,6 +9,7 @@ import styles from "./CustomerDetails.module.css";
 import CustomerDetailsInvoicesSection from "./customer-details-sections/CustomerDetailsInvoicesSection";
 import CustomerDetailsTabs from "./customer-details-tabs/CustomerDetailsTabs";
 import CustomerDetailsPersonalData from "./customer-details-personal-data/CustomerDetailsPersonalData";
+import { on } from "events";
 
 interface CustomerDetailsProps {
   customer: Partial<CustomerResponseParameters>;
@@ -17,6 +18,7 @@ interface CustomerDetailsProps {
   invoices: InvoiceResponseParameters[];
   onAddContract: (vehicleId: number) => void;
   onAddInvoice: (contractId: number, amount: number) => void;
+  onAddVehicle: () => void;
 }
 
 export enum CustomerDetailsTab {
@@ -32,6 +34,7 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = ({
   invoices,
   onAddContract,
   onAddInvoice,
+  onAddVehicle,
 }) => {
   const [activeTab, setActiveTab] = useState<CustomerDetailsTab>(
     CustomerDetailsTab.VEHICLES
@@ -53,6 +56,7 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = ({
             contracts={contracts}
             onAddContract={onAddContract}
             onAddInvoice={onAddInvoice}
+            onAddVehicle={onAddVehicle}
           />
         )}
 
