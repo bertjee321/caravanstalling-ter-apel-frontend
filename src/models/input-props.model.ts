@@ -3,6 +3,6 @@ export interface InputProps {
   isRequired?: boolean;
   reset: number;
   onStateChange?: (state: { [key: string]: string }) => void;
-  onHandleChange?: (value: React.ChangeEvent<HTMLInputElement>) => void;
+  onHandleChange?: (value: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   defaultValue?: string | number;
 }

@@ -14,7 +14,7 @@ export const addVehicle = async (vehicle: VehicleInput, customerId: number) => {
     size: vehicle.size,
     brand: vehicle.brand,
     model: vehicle.model,
-    currently_in_garage: true,
+    currently_in_garage: vehicle.currentlyStored,
   };
 
   try {

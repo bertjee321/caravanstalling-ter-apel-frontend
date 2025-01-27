@@ -1,7 +1,7 @@
 export interface VehicleRequestParameters {
   customer_id: number;
   type: string;
-  garage: string;
+  garage: string | null;
   license_plate: string;
   size: number;
   brand: string;
@@ -15,7 +15,7 @@ export interface VehicleResponseParameters {
   updated_at: string;
   customer_id: number;
   type: string;
-  garage: string;
+  garage: string | null;
   license_plate: string;
   size: number | null;
   brand: string | null;
